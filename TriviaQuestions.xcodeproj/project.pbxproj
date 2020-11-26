@@ -13,6 +13,7 @@
 		1BBCD41D256FFE3800ED2E71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BBCD41B256FFE3800ED2E71 /* Main.storyboard */; };
 		1BBCD41F256FFE3A00ED2E71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BBCD41E256FFE3A00ED2E71 /* Assets.xcassets */; };
 		1BBCD422256FFE3A00ED2E71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BBCD420256FFE3A00ED2E71 /* LaunchScreen.storyboard */; };
+		1BBCD42B25702CB200ED2E71 /* TriviaRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBCD42A25702CB200ED2E71 /* TriviaRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1BBCD41E256FFE3A00ED2E71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BBCD421256FFE3A00ED2E71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BBCD423256FFE3A00ED2E71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BBCD42A25702CB200ED2E71 /* TriviaRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				1BBCD417256FFE3800ED2E71 /* SceneDelegate.swift */,
 				1BBCD419256FFE3800ED2E71 /* ViewController.swift */,
 				1BBCD41B256FFE3800ED2E71 /* Main.storyboard */,
+				1BBCD42A25702CB200ED2E71 /* TriviaRequest.swift */,
 				1BBCD41E256FFE3A00ED2E71 /* Assets.xcassets */,
 				1BBCD420256FFE3A00ED2E71 /* LaunchScreen.storyboard */,
 				1BBCD423256FFE3A00ED2E71 /* Info.plist */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BBCD41A256FFE3800ED2E71 /* ViewController.swift in Sources */,
+				1BBCD42B25702CB200ED2E71 /* TriviaRequest.swift in Sources */,
 				1BBCD416256FFE3800ED2E71 /* AppDelegate.swift in Sources */,
 				1BBCD418256FFE3800ED2E71 /* SceneDelegate.swift in Sources */,
 			);
