@@ -80,8 +80,6 @@ class ViewController: UIViewController {
     
     @IBAction func answerButtonTapped(_ sender: UIButton) {
         let answerSelected = answers[sender.tag]
-        print(answerSelected)
-        print(triviaItems[0].correctAnswer)
         let answerIsCorrect = answerSelected == triviaItems[0].correctAnswer
         
         var alertTitle: String
