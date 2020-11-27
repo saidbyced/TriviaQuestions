@@ -115,10 +115,8 @@ class TriviaQuestionViewController: UIViewController {
         
         do {
             let attributedString = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-            print("string decoding completed")
             decodedString = attributedString.string
         } catch {
-            print("string decoding failed")
             decodedString = ""
         }
             
