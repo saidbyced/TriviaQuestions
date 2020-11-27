@@ -49,11 +49,11 @@ class TriviaQuestionViewController: UIViewController {
     }
     
     func updateUI() {
-        updateButtonPresenceForQuestionType()
+        updateButtonsPresenceForQuestionType()
         updateUILabels()
     }
     
-    func updateButtonPresenceForQuestionType() {
+    func updateButtonsPresenceForQuestionType() {
         if questionIsBoolean {
             answerButton3.isHidden = true
             answerButton4.isHidden = true
@@ -67,6 +67,7 @@ class TriviaQuestionViewController: UIViewController {
         let triviaItem = triviaItems[0]
         
         questionLabel.text = triviaItem.question
+        
         if questionIsBoolean {
             answerButton1.setTitle(answers[0], for: .normal)
             answerButton2.setTitle(answers[1], for: .normal)
@@ -99,7 +100,9 @@ class TriviaQuestionViewController: UIViewController {
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: alertActionTitle, style: .default, handler: nil)
         alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: {
+            print("next question please")
+        })
     }
 }
 
