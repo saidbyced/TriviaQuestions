@@ -16,10 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1l-QO-rWF" userLabel="QuestionLabel">
-                                <rect key="frame" x="40" y="164" width="334" height="63"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1l-QO-rWF" userLabel="QuestionLabel">
+                                <rect key="frame" x="40" y="94" width="334" height="105"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="63" id="YJn-RY-pBh"/>
+                                    <constraint firstAttribute="height" constant="105" id="YJn-RY-pBh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -68,7 +68,7 @@
                             <constraint firstItem="ek0-H0-TmE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="nqh-7l-fZT"/>
                             <constraint firstItem="a1l-QO-rWF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="wCh-Us-n3f"/>
                             <constraint firstItem="hY6-KT-EoG" firstAttribute="bottom" secondItem="1Q3-E3-Zaf" secondAttribute="top" constant="-50" id="ygf-mL-dVb"/>
-                            <constraint firstItem="a1l-QO-rWF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="120" id="zMX-07-Mkj"/>
+                            <constraint firstItem="a1l-QO-rWF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="zMX-07-Mkj"/>
                         </constraints>
                     </view>
                     <connections>
