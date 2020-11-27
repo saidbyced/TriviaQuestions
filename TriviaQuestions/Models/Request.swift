@@ -15,7 +15,7 @@ struct TriviaAPI {
     static let scheme = "https"
     static let host = "opentdb.com"
     static let path = "/api.php"
-    static let amountQuery = URLQueryItem(name: "amount", value: "1")
+    static let amountQuery = URLQueryItem(name: "amount", value: "10")
 }
 
 struct TriviaRequest {
