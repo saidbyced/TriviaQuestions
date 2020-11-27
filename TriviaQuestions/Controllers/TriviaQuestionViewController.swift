@@ -17,7 +17,7 @@ class TriviaQuestionViewController: UIViewController {
             }
         }
     }
-    var questionIsBoolean = false
+    var currentTriviaItemNumber = 0
     var answers = [String]()
     
     @IBOutlet weak var questionLabel: UILabel!
@@ -35,43 +35,25 @@ class TriviaQuestionViewController: UIViewController {
                 print(error)
             case .success(let triviaItems):
                 self?.triviaItems = triviaItems
-                self?.questionIsBoolean = triviaItems[0].type == TypeEnum.boolean
-                
-                var answers = [triviaItems[0].correctAnswer]
-                for answer in triviaItems[0].incorrectAnswers {
-                    answers.append(answer)
-                }
-                answers.shuffle()
-                
-                self?.answers = answers
+                self?.getAnswers()
             }
         }
     }
     
     func updateUI() {
-        updateButtonsPresenceForQuestionType()
-        updateUILabels()
-    }
-    
-    func updateButtonsPresenceForQuestionType() {
-        if questionIsBoolean {
-            answerButton3.isHidden = true
-            answerButton4.isHidden = true
-        } else {
-            answerButton3.isHidden = false
-            answerButton4.isHidden = false
-        }
-    }
-    
-    func updateUILabels() {
-        let triviaItem = triviaItems[0]
+        let triviaItem = triviaItems[self.currentTriviaItemNumber]
+        let questionIsBoolean = triviaItem.type == TypeEnum.boolean
         
         questionLabel.text = triviaItem.question
         
         if questionIsBoolean {
+            answerButton3.isHidden = true
+            answerButton4.isHidden = true
             answerButton1.setTitle(answers[0], for: .normal)
             answerButton2.setTitle(answers[1], for: .normal)
         } else {
+            answerButton3.isHidden = false
+            answerButton4.isHidden = false
             answerButton1.setTitle(answers[0], for: .normal)
             answerButton2.setTitle(answers[1], for: .normal)
             answerButton3.setTitle(answers[2], for: .normal)
@@ -79,9 +61,27 @@ class TriviaQuestionViewController: UIViewController {
         }
     }
     
+    func getAnswers() {
+        let triviaItem = triviaItems[self.currentTriviaItemNumber]
+        
+        var answers = [triviaItem.correctAnswer]
+        for answer in triviaItem.incorrectAnswers {
+            answers.append(answer)
+        }
+        answers.shuffle()
+        
+        self.answers = answers
+    }
+    
+    func nextQuestion() {
+        self.currentTriviaItemNumber += 1
+        getAnswers()
+        updateUI()
+    }
+    
     @IBAction func answerButtonTapped(_ sender: UIButton) {
         let answerSelected = answers[sender.tag]
-        let answerIsCorrect = answerSelected == triviaItems[0].correctAnswer
+        let answerIsCorrect = answerSelected == triviaItems[self.currentTriviaItemNumber].correctAnswer
         
         var alertTitle: String
         var alertMessage: String
@@ -101,7 +101,7 @@ class TriviaQuestionViewController: UIViewController {
         let alertAction = UIAlertAction(title: alertActionTitle, style: .default, handler: nil)
         alertController.addAction(alertAction)
         present(alertController, animated: true, completion: {
-            print("next question please")
+            self.nextQuestion()
         })
     }
 }
