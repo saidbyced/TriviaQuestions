@@ -13,6 +13,7 @@ class TriviaQuestionViewController: UIViewController {
     var triviaItems = [TriviaItem]() {
         didSet {
             DispatchQueue.main.async {
+                self.getAnswers()
                 self.updateUI()
             }
         }
@@ -35,7 +36,6 @@ class TriviaQuestionViewController: UIViewController {
                 print(error)
             case .success(let triviaItems):
                 self?.triviaItems = triviaItems
-                self?.getAnswers()
             }
         }
     }
@@ -44,7 +44,7 @@ class TriviaQuestionViewController: UIViewController {
         let triviaItem = triviaItems[self.currentTriviaItemNumber]
         let questionIsBoolean = triviaItem.type == TypeEnum.boolean
         
-        questionLabel.text = triviaItem.question
+        questionLabel.text = convertedHMTLString(for: triviaItem.question)
         
         if questionIsBoolean {
             answerButton3.isHidden = true
@@ -64,11 +64,10 @@ class TriviaQuestionViewController: UIViewController {
     func getAnswers() {
         let triviaItem = triviaItems[self.currentTriviaItemNumber]
         
-        var answers = [triviaItem.correctAnswer]
-        for answer in triviaItem.incorrectAnswers {
-            answers.append(answer)
+        var answers = [convertedHMTLString(for: triviaItem.correctAnswer)]
+        for rawAnswer in triviaItem.incorrectAnswers {
+            answers.append(convertedHMTLString(for: rawAnswer))
         }
-        answers.shuffle()
         
         self.answers = answers
     }
@@ -109,5 +108,22 @@ class TriviaQuestionViewController: UIViewController {
             self.nextQuestion()
         })
     }
+    
+    func convertedHMTLString(for htmlString: String) -> String {
+        let data = Data(htmlString.utf8)
+        var decodedString = ""
+        
+        do {
+            let attributedString = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+            print("string decoding completed")
+            decodedString = attributedString.string
+        } catch {
+            print("string decoding failed")
+            decodedString = ""
+        }
+            
+        return decodedString
+    }
+    
 }
 
