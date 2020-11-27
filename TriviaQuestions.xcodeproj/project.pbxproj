@@ -79,9 +79,9 @@
 		1BBCD414256FFE3800ED2E71 /* TriviaQuestions */ = {
 			isa = PBXGroup;
 			children = (
-				1BA57E7625712D1100DAE9EA /* Controllers */,
-				1BA57E7425712D0300DAE9EA /* Views */,
 				1BEDA0AD25705AFA0044D866 /* Models */,
+				1BA57E7425712D0300DAE9EA /* Views */,
+				1BA57E7625712D1100DAE9EA /* Controllers */,
 				1BBCD41E256FFE3A00ED2E71 /* Assets.xcassets */,
 				1BBCD423256FFE3A00ED2E71 /* Info.plist */,
 			);
