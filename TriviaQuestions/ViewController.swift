@@ -18,6 +18,7 @@ class ViewController: UIViewController {
         }
     }
     var questionIsBoolean = false
+    var answers = [String]()
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answerButton1: UIButton!
@@ -35,6 +36,14 @@ class ViewController: UIViewController {
             case .success(let triviaItems):
                 self?.triviaItems = triviaItems
                 self?.questionIsBoolean = triviaItems[0].incorrectAnswers.count > 1
+                
+                var answers = [triviaItems[0].correctAnswer]
+                for answer in triviaItems[0].incorrectAnswers {
+                    answers.append(answer)
+                }
+                answers.shuffle()
+                
+                self?.answers = answers
             }
         }
     }
@@ -56,7 +65,6 @@ class ViewController: UIViewController {
     
     func updateUILabels() {
         let triviaItem = triviaItems[0]
-        let answers = answersForTriviaItem(triviaItem)
         
         questionLabel.text = triviaItem.question
         if questionIsBoolean {
@@ -70,14 +78,5 @@ class ViewController: UIViewController {
         }
     }
     
-    func answersForTriviaItem(_ triviaItem: TriviaItem) -> [String] {
-        var answers = [triviaItem.correctAnswer]
-        for answer in triviaItem.incorrectAnswers {
-            answers.append(answer)
-        }
-        answers.shuffle()
-        
-        return answers
-    }
 }
 
