@@ -74,8 +74,13 @@ class TriviaQuestionViewController: UIViewController {
     }
     
     func nextQuestion() {
+        guard self.currentTriviaItemNumber < 9 else {
+            // FIXME: Handle question count greater than 10
+            fatalError()
+        }
         self.currentTriviaItemNumber += 1
         getAnswers()
+        // FIXME: Update UI only when OK button pressed
         updateUI()
     }
     
