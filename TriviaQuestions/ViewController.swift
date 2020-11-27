@@ -35,7 +35,7 @@ class ViewController: UIViewController {
                 print(error)
             case .success(let triviaItems):
                 self?.triviaItems = triviaItems
-                self?.questionIsBoolean = triviaItems[0].incorrectAnswers.count > 1
+                self?.questionIsBoolean = triviaItems[0].type == TypeEnum.boolean
                 
                 var answers = [triviaItems[0].correctAnswer]
                 for answer in triviaItems[0].incorrectAnswers {
@@ -78,5 +78,30 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func answerButtonTapped(_ sender: UIButton) {
+        let answerSelected = answers[sender.tag]
+        print(answerSelected)
+        print(triviaItems[0].correctAnswer)
+        let answerIsCorrect = answerSelected == triviaItems[0].correctAnswer
+        
+        var alertTitle: String
+        var alertMessage: String
+        var alertActionTitle: String
+        
+        if answerIsCorrect {
+            alertTitle = "Yussss"
+            alertMessage = "You got it right!"
+            alertActionTitle = "Woop"
+        } else {
+            alertTitle = "Uh oh"
+            alertMessage = "Not the right answer"
+            alertActionTitle = "Schucks"
+        }
+
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: alertActionTitle, style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
