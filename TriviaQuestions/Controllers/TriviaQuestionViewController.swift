@@ -40,27 +40,6 @@ class TriviaQuestionViewController: UIViewController {
         }
     }
     
-    func updateUI() {
-        let triviaItem = triviaItems[self.currentTriviaItemNumber]
-        let questionIsBoolean = triviaItem.type == TypeEnum.boolean
-        
-        questionLabel.text = convertedHMTLString(for: triviaItem.question)
-        
-        if questionIsBoolean {
-            answerButton3.isHidden = true
-            answerButton4.isHidden = true
-            answerButton1.setTitle(answers[0], for: .normal)
-            answerButton2.setTitle(answers[1], for: .normal)
-        } else {
-            answerButton3.isHidden = false
-            answerButton4.isHidden = false
-            answerButton1.setTitle(answers[0], for: .normal)
-            answerButton2.setTitle(answers[1], for: .normal)
-            answerButton3.setTitle(answers[2], for: .normal)
-            answerButton4.setTitle(answers[3], for: .normal)
-        }
-    }
-    
     func getAnswers() {
         let triviaItem = triviaItems[self.currentTriviaItemNumber]
         
@@ -70,6 +49,37 @@ class TriviaQuestionViewController: UIViewController {
         }
         
         self.answers = answers
+    }
+    
+    func updateUI() {
+        let triviaItem = triviaItems[self.currentTriviaItemNumber]
+        
+        questionLabel.text = convertedHMTLString(for: triviaItem.question)
+        
+        updateButtonUI(for: triviaItem)
+    }
+    
+    func updateButtonUI(for triviaItem: TriviaItem) {
+        let questionBooleanStatus = triviaItem.type == TypeEnum.boolean
+        
+        setButtonVisibility(for: questionBooleanStatus)
+        setButtonTitles(for: questionBooleanStatus)
+    }
+    
+    func setButtonVisibility(for questionBooleanStatus: Bool) {
+        answerButton3.isHidden = questionBooleanStatus
+        answerButton4.isHidden = questionBooleanStatus
+    }
+    
+    func setButtonTitles(for questionBooleanStatus: Bool) {
+        var buttonList = [answerButton1, answerButton2]
+        if questionBooleanStatus != true  {
+            buttonList += [answerButton3, answerButton4]
+        }
+        
+        for (index, button) in buttonList.enumerated() {
+            button?.setTitle(answers[index], for: .normal)
+        }
     }
     
     func nextQuestion() {
