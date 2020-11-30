@@ -13,13 +13,14 @@ class TriviaQuestionViewController: UIViewController {
     var triviaItems = [TriviaItem]() {
         didSet {
             DispatchQueue.main.async {
-                self.getAnswers()
-                self.updateUI()
+                self.updateEverything()
             }
         }
     }
     var currentTriviaItemNumber = 0
-    var answers = [String]()
+    var currentTriviaItem: TriviaItem!
+    var questionType: TypeEnum!
+    var answers: [String]!
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answerButton1: UIButton!
@@ -41,39 +42,39 @@ class TriviaQuestionViewController: UIViewController {
     }
     
     func getAnswers() {
-        let triviaItem = triviaItems[self.currentTriviaItemNumber]
-        
-        var answers = [convertedHMTLString(for: triviaItem.correctAnswer)]
-        for rawAnswer in triviaItem.incorrectAnswers {
+        var answers = [convertedHMTLString(for: currentTriviaItem.correctAnswer)]
+        for rawAnswer in currentTriviaItem.incorrectAnswers {
             answers.append(convertedHMTLString(for: rawAnswer))
         }
         
         self.answers = answers
     }
     
+    func updateEverything() {
+        self.currentTriviaItem = self.triviaItems[self.currentTriviaItemNumber]
+        self.getAnswers()
+        self.updateUI()
+    }
+    
     func updateUI() {
-        let triviaItem = triviaItems[self.currentTriviaItemNumber]
+        questionLabel.text = convertedHMTLString(for: currentTriviaItem.question)
         
-        questionLabel.text = convertedHMTLString(for: triviaItem.question)
-        
-        updateButtonUI(for: triviaItem)
+        updateButtonUI()
     }
     
-    func updateButtonUI(for triviaItem: TriviaItem) {
-        let questionBooleanStatus = triviaItem.type == TypeEnum.boolean
-        
-        setButtonVisibility(for: questionBooleanStatus)
-        setButtonTitles(for: questionBooleanStatus)
+    func updateButtonUI() {
+        setButtonVisibility()
+        setButtonTitles()
     }
     
-    func setButtonVisibility(for questionBooleanStatus: Bool) {
-        answerButton3.isHidden = questionBooleanStatus
-        answerButton4.isHidden = questionBooleanStatus
+    func setButtonVisibility() {
+        answerButton3.isHidden = questionType == .boolean
+        answerButton4.isHidden = questionType == .boolean
     }
     
-    func setButtonTitles(for questionBooleanStatus: Bool) {
+    func setButtonTitles() {
         var buttonList = [answerButton1, answerButton2]
-        if questionBooleanStatus != true  {
+        if questionType == .multiple  {
             buttonList += [answerButton3, answerButton4]
         }
         
@@ -88,14 +89,14 @@ class TriviaQuestionViewController: UIViewController {
             fatalError()
         }
         self.currentTriviaItemNumber += 1
-        getAnswers()
+        
         // FIXME: Update UI only when OK button pressed
-        updateUI()
+        updateEverything()
     }
     
     @IBAction func answerButtonTapped(_ sender: UIButton) {
         let answerSelected = answers[sender.tag]
-        let answerIsCorrect = answerSelected == triviaItems[self.currentTriviaItemNumber].correctAnswer
+        let answerIsCorrect = answerSelected == currentTriviaItem.correctAnswer
         
         let alertController = UIAlertController(
             title: answerIsCorrect ? "Yussss" : "Uh oh",
