@@ -121,16 +121,13 @@ class TriviaQuestionViewController: UIViewController {
     
     func convertedHMTLString(for htmlString: String) -> String {
         let data = Data(htmlString.utf8)
-        var decodedString = ""
         
         do {
             let attributedString = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-            decodedString = attributedString.string
+            return attributedString.string
         } catch {
-            decodedString = ""
+            return ""
         }
-            
-        return decodedString
     }
     
 }
