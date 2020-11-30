@@ -97,26 +97,20 @@ class TriviaQuestionViewController: UIViewController {
         let answerSelected = answers[sender.tag]
         let answerIsCorrect = answerSelected == triviaItems[self.currentTriviaItemNumber].correctAnswer
         
-        var alertTitle: String
-        var alertMessage: String
-        var alertActionTitle: String
+        let alertController = UIAlertController(
+            title: answerIsCorrect ? "Yussss" : "Uh oh",
+            message: answerIsCorrect ? "You got it right!" : "Not the right answer",
+            preferredStyle: .alert
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: answerIsCorrect ? "Woop" : "Schucks",
+                style: .default,
+                handler: nil
+            )
+        )
         
-        if answerIsCorrect {
-            alertTitle = "Yussss"
-            alertMessage = "You got it right!"
-            alertActionTitle = "Woop"
-        } else {
-            alertTitle = "Uh oh"
-            alertMessage = "Not the right answer"
-            alertActionTitle = "Schucks"
-        }
-
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: alertActionTitle, style: .default, handler: nil)
-        alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: {
-            self.nextQuestion()
-        })
+        present(alertController, animated: true, completion: { self.nextQuestion() })
     }
     
     func convertedHMTLString(for htmlString: String) -> String {
