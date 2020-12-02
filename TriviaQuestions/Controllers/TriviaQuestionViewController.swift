@@ -10,17 +10,26 @@ import UIKit
 class TriviaQuestionViewController: UIViewController {
     
     let triviaAPIRequest = TriviaRequest()
-    var triviaItems = [TriviaItem]() {
+    var triviaItems = [TriviaItem]()
+    var currentTriviaItemNumber = 0
+    var currentTriviaItem: TriviaItem! {
         didSet {
             DispatchQueue.main.async {
-                self.updateEverything()
+                self.updateUI()
             }
         }
     }
-    var currentTriviaItemNumber = 0
-    var currentTriviaItem: TriviaItem!
-    var questionType: TypeEnum!
-    var answers: [String]!
+    var questionType: TypeEnum {
+        return currentTriviaItem.type
+    }
+    var answers: [String] {
+        var answers = [convertedHMTLString(for: currentTriviaItem.correctAnswer)]
+        for rawAnswer in currentTriviaItem.incorrectAnswers {
+            answers.append(convertedHMTLString(for: rawAnswer))
+        }
+        
+        return answers
+    }
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answerButton1: UIButton!
@@ -37,23 +46,9 @@ class TriviaQuestionViewController: UIViewController {
                 print(error)
             case .success(let triviaItems):
                 self?.triviaItems = triviaItems
+                self?.currentTriviaItem = triviaItems[self?.currentTriviaItemNumber ?? 0]
             }
         }
-    }
-    
-    func getAnswers() {
-        var answers = [convertedHMTLString(for: currentTriviaItem.correctAnswer)]
-        for rawAnswer in currentTriviaItem.incorrectAnswers {
-            answers.append(convertedHMTLString(for: rawAnswer))
-        }
-        
-        self.answers = answers
-    }
-    
-    func updateEverything() {
-        self.currentTriviaItem = self.triviaItems[self.currentTriviaItemNumber]
-        self.getAnswers()
-        self.updateUI()
     }
     
     func updateUI() {
@@ -90,8 +85,8 @@ class TriviaQuestionViewController: UIViewController {
         }
         self.currentTriviaItemNumber += 1
         
+        currentTriviaItem = triviaItems[currentTriviaItemNumber]
         // FIXME: Update UI only when OK button pressed
-        updateEverything()
     }
     
     @IBAction func answerButtonTapped(_ sender: UIButton) {
